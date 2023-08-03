@@ -13,7 +13,7 @@
     "express": "latest",
     "express-mongo-sanitize": "latest",
     "express-rate-limit": "latest",
-    "extrass": "^1.0.1",
+    "extrass": "^1.0.5",
     "helmet": "latest",
     "manual-node-env": "latest",
     "mongoose": "latest",

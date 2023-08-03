@@ -320,13 +320,13 @@ express@latest:
     utils-merge "1.0.1"
     vary "~1.1.2"
 
-extrass@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/extrass/-/extrass-1.0.1.tgz#0b001f2abcffe842da33714f0d06ac611c2ef338"
-  integrity sha512-cZf7mDZMSuJ1C2iE3k0kOFEXwoy74JIpeOm4RUehamYJ2aZY9I4pPIE2f7WmyMXaiyBp/Dok/1JSYg12AGGP4w==
+extrass@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/extrass/-/extrass-1.0.5.tgz#970230b681bd13966adf03818cf74d5c33bc1c92"
+  integrity sha512-hagnaaTTL1bYFZUNSult2SQIpxF5iR9CoUmxJH65n0hWGehYFwidq7aLnGcbe1ZP1GkDaYVKhuHnKAUyUlYGQw==
   dependencies:
     req-error "^2.0.1"
-    rype "^0.0.4"
+    rype "^0.0.5"
 
 finalhandler@1.2.0:
   version "1.2.0"
@@ -599,10 +599,10 @@ req-error@^2.0.1:
   resolved "https://registry.yarnpkg.com/req-error/-/req-error-2.0.1.tgz#c3889f21396028c9c9db3b15e1d189c8f7b16c5d"
   integrity sha512-x1U3l18MF/bNLaNCeDIUm/YaQqDlO2IkdFWtvVh4NZ5T/a+ogXZmCi+PMm26YU/MrxqLJJHYr5Eo1WWlhJmk6Q==
 
-rype@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/rype/-/rype-0.0.4.tgz#2ebc65314acdb634e3ecc69f8129f602bbee377c"
-  integrity sha512-cQCyQkegKCQ2SJiG9nEsDymYpW/z4ftgyumQRb3viNMSWkt6v0fZCLcxRcKn0Ypf2wS8/Fe2GweK1NgET2sONg==
+rype@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/rype/-/rype-0.0.5.tgz#ca06f3392d9b837c151019c8bd700ae53c3acf83"
+  integrity sha512-xrEmTwE7D+NGOcc58C9GkoBLS5RKHtN1w5ptqtBTJpD3WM/p8iMYGXQ03b/xjwrnNSCAkluRoqwnRo2j5Mm1gQ==
 
 safe-buffer@5.2.1:
   version "5.2.1"
