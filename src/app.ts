@@ -4,6 +4,7 @@ import cors from 'cors'
 import xss from 'xss-clean'
 import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
+import cookieParser from 'cookie-parser'
 import mongoSanitize from 'express-mongo-sanitize'
 import router from './router'
 const app = express()
@@ -24,6 +25,7 @@ app.use(
 
 // Pasrer
 app.use(express.json({ limit: '8kb' }))
+app.use(cookieParser())
 
 // XXS
 app.use(mongoSanitize())

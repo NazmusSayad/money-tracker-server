@@ -5,7 +5,8 @@
     "module": "CommonJS",
     "strict": true,
     "esModuleInterop": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "strictFunctionTypes": false
   },
   "include": ["./src"]
 }

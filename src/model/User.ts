@@ -39,14 +39,16 @@ schema.pre('save', async function (this: PassPreSaveHelper, next) {
 
 schema.post('save', function (this: PassPreSaveHelper) {
   if (this._verificationCode) {
+    console.log('Verification OTP:', this._verificationCode)
     /*   mail({
       to: this.email,
       subject: 'Account verificaiton code',
       body: this._verificationCode,
     }) */
   }
-
+  
   if (this._recoverCode) {
+    console.log('Recover OTP:', this._recoverCode)
     /*  mail({
       to: this.email,
       subject: 'Password Reset Code',

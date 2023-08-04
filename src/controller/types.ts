@@ -1,8 +1,15 @@
-import { NextFunction, Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
+import { UserDoc } from '../model/User'
 
-type UserRequest = {}
+type UserRequest = {
+  user: UserDoc
+  io: {
+    emit(event: string, ...args: any[]): void
+    disconnect(): void
+  }
+}
 
-export type UserController<T = {}> = (
+export type UserReq<T = {}> = (
   req: Request & UserRequest & T,
   res: Response,
   next: NextFunction
