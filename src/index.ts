@@ -6,4 +6,4 @@ console.log('---', new Date().toString())
 
 import './db'
 import './server'
-import './_test'
+import './_lab'
