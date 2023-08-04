@@ -8,13 +8,15 @@
     "start": "node ./dist --NODE_ENV=production"
   },
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cors": "latest",
     "dotenv": "latest",
     "express": "latest",
     "express-mongo-sanitize": "latest",
     "express-rate-limit": "latest",
-    "extrass": "^1.0.5",
+    "extrass": "^1.0.8",
     "helmet": "latest",
+    "lskit": "^1.0.0",
     "manual-node-env": "latest",
     "mongoose": "latest",
     "socket.io": "^4.7.2",
