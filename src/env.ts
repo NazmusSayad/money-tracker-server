@@ -7,4 +7,6 @@ const result = env({
   BCRYPT_SALT_ROUND_2: r.number(),
 })
 
+
+console.log(result)
 export default { ...result }
