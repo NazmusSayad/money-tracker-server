@@ -5,17 +5,13 @@ import {
   parseUserFromCookie,
 } from '../../utils/jwt'
 import io from '../../socket'
-import { UserReq } from '../types'
+import { UserHandler } from '../types'
 
-function checkAuthFactory(isVerified?: boolean): UserReq {
+function checkAuthFactory(isVerified?: boolean): UserHandler {
   return async (req, res, next) => {
-    const { authorization, socketid = '' } = r.noType({
-      authorization: r.string(),
-      socketid: r.o.string(),
-    })({
-      authorization: req.headers.authorization,
-      socketid: req.headers.socketid,
-    })
+    const { authorization, socketid } = r
+      .object({ authorization: r.string(), socketid: r.string().default('') })
+      .parse(req.headers)
 
     const user = await parseUserFromToken(authorization, isVerified)
     const sockets = io.to(user._id.toString()).except(socketid)
@@ -30,20 +26,21 @@ export const checkAuthToken = checkAuthFactory()
 export const checkAuthTokenVerifiedUser = checkAuthFactory(true)
 export const checkAuthTokenNotVerifiedUser = checkAuthFactory(false)
 
-export const getAuthTokenByCookie: UserReq = async (req, res, next) => {
-  const { cookieToken } = r({ cookieToken: r.string() })({
-    cookieToken: req.cookies.cookieToken!,
-  })
+export const getAuthTokenByCookie: UserHandler = async (req, res, next) => {
+  const { cookieToken } = r
+    .object({ cookieToken: r.string() })
+    .parse(req.cookies)
+
   req.user = await parseUserFromCookie(cookieToken)
   next()
 }
 
-export const clearCookieToken: UserReq = (req, res) => {
+export const clearCookieToken: UserHandler = (req, res) => {
   res.clearCookie('cookieToken')
   res.status(204).end()
 }
 
-export const sendUserAndToken: UserReq = (req, res) => {
+export const sendUserAndToken: UserHandler = (req, res) => {
   const cookieToken = generateCookieToken(req.user)
   const authToken = generateAuthToken(req.user)
 
@@ -51,13 +48,13 @@ export const sendUserAndToken: UserReq = (req, res) => {
     secure: true,
     httpOnly: false,
     sameSite: 'none',
-    maxAge: 86400000 /* 1 day in miliseconds * 30 = 30 days */ * 30,
+    maxAge: 86400000 * 30, // 1 day in milliseconds * 30 = 30 days
   })
   res.cookie('cookieToken', cookieToken, {
     secure: true,
     httpOnly: true,
     sameSite: 'none',
-    maxAge: 86400000 /* 1 day in miliseconds * 30 = 30 days */ * 30,
+    maxAge: 86400000 * 30, // 1 day in milliseconds * 30 = 30 days
   })
 
   res.success({ user: req.user.getSafeInfo(), token: authToken })

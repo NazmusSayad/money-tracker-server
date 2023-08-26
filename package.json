@@ -1,8 +1,7 @@
 {
   "scripts": {
-    "dev:dev": "node --watch ./dist --NODE_ENV=development",
-    "dev:tsc": "tsc -w",
-    "dev": "npm run dev:tsc & npm run dev:dev",
+    "dev": "node --watch ./dist --NODE_ENV=development",
+    "tsc": "tsc -w",
     "debug": "ndb npm run dev",
     "build": "tsc",
     "start": "node ./dist --NODE_ENV=production"
@@ -15,7 +14,7 @@
     "express": "^4.18.2",
     "express-mongo-sanitize": "latest",
     "express-rate-limit": "latest",
-    "extrass": "^1.0.11",
+    "extrass": "^1.0.14",
     "helmet": "latest",
     "jsonwebtoken": "^9.0.1",
     "lskit": "^1.0.0",

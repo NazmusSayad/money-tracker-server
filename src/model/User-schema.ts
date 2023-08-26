@@ -6,7 +6,7 @@ export default new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'User must have a name'],
+      required: true,
       match: [/^[a-zA-Z]{1,}(?: [a-zA-Z]+){0,2}$/, 'Enter a valid name.'],
     },
     avatar: {
@@ -14,10 +14,10 @@ export default new mongoose.Schema(
       match: [/^https?:\/\//, 'Please enter a valid image url'],
     },
 
-    email: emailSchema(),
+    email: { ...emailSchema(), required: true },
     password: {
       type: String,
-      required: [true, 'User must have a password'],
+      required: true,
     },
     passwordModifiedAt: {
       type: Date,
@@ -28,7 +28,7 @@ export default new mongoose.Schema(
       required: true,
     },
 
-    pendingEmail: { ...emailSchema(), required: false, unique: false },
+    pendingEmail: { ...emailSchema(), unique: false },
     verificationCode: { type: String },
     recoverCode: { type: String },
     createdAt: createdAtSchema(),
@@ -50,6 +50,10 @@ export default new mongoose.Schema(
 
     methods: {
       getSafeInfo() {
+        if (!this) {
+          throw new Error('Should set req.user at any previous middleware')
+        }
+
         return this
       },
 
@@ -60,12 +64,20 @@ export default new mongoose.Schema(
       },
 
       async isVerifyCodeMatched(code: string) {
+        if (!this.verificationCode) {
+          throw new ReqError('No verification process running')
+        }
+
         return Boolean(
           code && (await bcrypt.compare(code, this.verificationCode))
         )
       },
 
       async isRecoverCodeMatched(code: string) {
+        if (!this.recoverCode) {
+          throw new ReqError('No recover process running')
+        }
+
         return Boolean(code && (await bcrypt.compare(code, this.recoverCode)))
       },
     },

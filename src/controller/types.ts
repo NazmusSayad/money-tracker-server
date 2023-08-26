@@ -9,8 +9,14 @@ type UserRequest = {
   }
 }
 
-export type UserReq<T = {}> = (
+export type UserHandler<T = {}> = (
   req: Request & UserRequest & T,
+  res: Response,
+  next: NextFunction
+) => void
+
+export type NormalHandler<T = {}> = (
+  req: Request & T,
   res: Response,
   next: NextFunction
 ) => void

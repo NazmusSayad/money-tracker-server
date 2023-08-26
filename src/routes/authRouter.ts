@@ -11,15 +11,23 @@ router.post('/signup', authController.signup, tokenController.sendUserAndToken)
 router.post('/login', authController.login, tokenController.sendUserAndToken)
 
 router.post(
-  '/verify',
+  '/send-verification-code',
+  tokenController.checkAuthToken,
+  authController.sendVerificationCode
+)
+router.post(
+  '/verify-user',
   tokenController.checkAuthTokenNotVerifiedUser,
+  authController.matchVerifyCode,
   authController.verifyUser,
   tokenController.sendUserAndToken
 )
+
+router.post('/send-recover-code', authController.sendRecoverCode)
 router.post(
-  '/resend-verification-code',
-  tokenController.checkAuthToken,
-  authController.resendVerificationCode
+  '/reset-password',
+  authController.resetPassword,
+  tokenController.sendUserAndToken
 )
 
 router.all(

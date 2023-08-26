@@ -446,13 +446,13 @@ express@^4.18.2:
     utils-merge "1.0.1"
     vary "~1.1.2"
 
-extrass@^1.0.11:
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/extrass/-/extrass-1.0.11.tgz#c64d019904d6663438422a8fb488b0a7be64ff58"
-  integrity sha512-aMtaKVAzD53A//C9FBIzxoPRNHtKjqCqdTKNEPimo+ciRhVZCAJWQ0MIZ0ZrTHAjJTQImh2wiufP4Irw64+mLA==
+extrass@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/extrass/-/extrass-1.0.14.tgz#8916e59879661395e404f0303102b06860961f62"
+  integrity sha512-0AD+ln+jDBLIxQdzLcNlhQGazJobRsxywBy5fJ4+pEF9aVcQka3YuXcqgoTSx1xJyr8qrsrQ/VHJe7/oem2TBA==
   dependencies:
     req-error "^2.0.1"
-    rype "^0.0.10"
+    rype "^1.0.17"
 
 finalhandler@1.2.0:
   version "1.2.0"
@@ -930,10 +930,10 @@ rimraf@^3.0.2:
   dependencies:
     glob "^7.1.3"
 
-rype@^0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/rype/-/rype-0.0.10.tgz#49383f8f6fea51f824afaadcc293f378363b6300"
-  integrity sha512-1VnCdBjnxSKsdOYAjbd6ReuW/2AE6Kvlv4+O9fvYLowv1jlH5+8dFpqyj0uCaS3cnxJwJjT7lbOtAlVTYTkKYw==
+rype@^1.0.17:
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/rype/-/rype-1.0.17.tgz#d7620cc33c08dd23da1fcbb123d4bd59256951e3"
+  integrity sha512-o2hidRMNCpO2e/OEFOeJqQEalvWNaJzC1Pw4QXhk2h90TTL2KgV3YKfMc1n6falGw1Z8GQZEx/JM7hcyMovwAA==
 
 safe-buffer@5.2.1, safe-buffer@^5.0.1, safe-buffer@~5.2.0:
   version "5.2.1"

@@ -5,5 +5,4 @@ export default env({
   JWT_SECRET: r.string(),
   BCRYPT_SALT_ROUND: r.number(),
   BCRYPT_SALT_ROUND_2: r.number(),
-  OPTIONAL: r.o.string(),
 })
