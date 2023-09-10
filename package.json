@@ -15,12 +15,11 @@
     "express": "^4.18.2",
     "express-mongo-sanitize": "latest",
     "express-rate-limit": "latest",
-    "extrass": "^1.0.14",
+    "extrass": "^1.0.17",
     "helmet": "latest",
     "jsonwebtoken": "^9.0.1",
     "lskit": "^1.0.0",
     "mongoose": "latest",
-    "rype": "^1.0.20",
     "socket.io": "^4.7.2",
     "xss-clean": "latest"
   },
