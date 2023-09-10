@@ -1,9 +1,1 @@
-export function socketMiddlewire(req, res, next) {
-  
-  
-  
-  
-  
-  
-  
-}
+export function socketMiddleware(req, res, next) {}

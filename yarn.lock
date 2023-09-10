@@ -244,6 +244,11 @@ chownr@^2.0.0:
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-2.0.0.tgz#15bfbe53d2eab4cf70f18a8cd68ebe5b3cb1dece"
   integrity sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==
 
+cli-node-env@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/cli-node-env/-/cli-node-env-1.0.1.tgz#285e05c78a624ce8ab291617afa29848ea250910"
+  integrity sha512-iGNFduSi/mXxvapPLUdjUW+FEjNaLLNqQINIV3UyzMFWjzWVDOFrGrCgxhUUfTe9U6dorj+y9911thY8FQxQ2A==
+
 color-support@^1.1.2:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/color-support/-/color-support-1.1.3.tgz#93834379a1cc9a0c61f82f52f0d04322251bd5a2"
@@ -668,11 +673,6 @@ make-dir@^3.1.0:
   dependencies:
     semver "^6.0.0"
 
-manual-node-env@latest:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/manual-node-env/-/manual-node-env-1.0.4.tgz#802cb2558f7173ef246e65ff1e3d3e1c887264cf"
-  integrity sha512-ptFxI2IERcx9q2Bocg/z+PVt2GMLRwy7PmvQuofFhenYPK77Nkni2WtP/WeWVT50UymadhYXZvIEmEHiCeeI8g==
-
 media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
@@ -934,6 +934,11 @@ rype@^1.0.17:
   version "1.0.17"
   resolved "https://registry.yarnpkg.com/rype/-/rype-1.0.17.tgz#d7620cc33c08dd23da1fcbb123d4bd59256951e3"
   integrity sha512-o2hidRMNCpO2e/OEFOeJqQEalvWNaJzC1Pw4QXhk2h90TTL2KgV3YKfMc1n6falGw1Z8GQZEx/JM7hcyMovwAA==
+
+rype@^1.0.20:
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/rype/-/rype-1.0.20.tgz#8163dab161ab49ca6aa3a5928497a7f0eb5dc635"
+  integrity sha512-W92O9NGt7ORHNgiPfgwJt4F7KD/rPIFdBsds9P8w7Fknfx5UNECpzjz5An5AFtUMmZfZxhHZpUYCfkNPa9poYA==
 
 safe-buffer@5.2.1, safe-buffer@^5.0.1, safe-buffer@~5.2.0:
   version "5.2.1"

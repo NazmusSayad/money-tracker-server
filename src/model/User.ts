@@ -1,7 +1,8 @@
-import mongoose, { HydratedDocumentFromSchema, InferSchemaType } from 'mongoose'
+import env from '../env'
 import schema from './User-schema'
 import bcrypt from 'bcrypt'
-import env from '../env'
+import mongoose, { HydratedDocumentFromSchema, InferSchemaType } from 'mongoose'
+
 export type UserType = InferSchemaType<typeof schema>
 export type UserDoc = HydratedDocumentFromSchema<typeof schema>
 
@@ -40,20 +41,10 @@ schema.pre('save', async function (this: PassPreSaveHelper, next) {
 schema.post('save', function (this: PassPreSaveHelper) {
   if (this._verificationCode) {
     console.log('Verification OTP:', this._verificationCode)
-    /*   mail({
-      to: this.email,
-      subject: 'Account verificaiton code',
-      body: this._verificationCode,
-    }) */
   }
-  
+
   if (this._recoverCode) {
     console.log('Recover OTP:', this._recoverCode)
-    /*  mail({
-      to: this.email,
-      subject: 'Password Reset Code',
-      body: this._recoverCode,
-    }) */
   }
 })
 

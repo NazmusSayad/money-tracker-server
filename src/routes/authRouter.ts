@@ -1,41 +1,40 @@
 import { Router } from 'express'
-import { catchError } from 'extrass'
+import controller from '../controller'
 const router = Router()
 
-import * as _authController from '../controller/account/authController'
-const authController = catchError(_authController)
-import * as _tokenController from '../controller/account/tokenController'
-const tokenController = catchError(_tokenController)
-
-router.post('/signup', authController.signup, tokenController.sendUserAndToken)
-router.post('/login', authController.login, tokenController.sendUserAndToken)
+router.post(
+  '/signup',
+  controller.auth.signup,
+  controller.token.sendUserAndToken
+)
+router.post('/login', controller.auth.login, controller.token.sendUserAndToken)
 
 router.post(
   '/send-verification-code',
-  tokenController.checkAuthToken,
-  authController.sendVerificationCode
+  controller.token.checkAuthToken,
+  controller.auth.sendVerificationCode
 )
 router.post(
   '/verify-user',
-  tokenController.checkAuthTokenNotVerifiedUser,
-  authController.matchVerifyCode,
-  authController.verifyUser,
-  tokenController.sendUserAndToken
+  controller.token.checkAuthTokenNotVerifiedUser,
+  controller.auth.matchVerifyCode,
+  controller.auth.verifyUser,
+  controller.token.sendUserAndToken
 )
 
-router.post('/send-recover-code', authController.sendRecoverCode)
+router.post('/send-recover-code', controller.auth.sendRecoverCode)
 router.post(
   '/reset-password',
-  authController.resetPassword,
-  tokenController.sendUserAndToken
+  controller.auth.resetPassword,
+  controller.token.sendUserAndToken
 )
 
 router.all(
   '/token',
-  tokenController.getAuthTokenByCookie,
-  tokenController.sendUserAndToken
+  controller.token.getAuthTokenByCookie,
+  controller.token.sendUserAndToken
 )
 
-router.post('/clear', tokenController.clearCookieToken)
+router.post('/clear', controller.token.clearCookieToken)
 
 export default router

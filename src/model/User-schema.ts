@@ -1,6 +1,6 @@
+import bcrypt from 'bcrypt'
 import mongoose from 'mongoose'
 import { createdAtSchema, emailSchema } from './_utils'
-import bcrypt from 'bcrypt'
 
 export default new mongoose.Schema(
   {
@@ -33,7 +33,10 @@ export default new mongoose.Schema(
     recoverCode: { type: String },
     createdAt: createdAtSchema(),
   },
+
   {
+    versionKey: false,
+
     statics: {
       async checkEmailAvailability(email: string) {
         if (!email) throw new ReqError('Please provide an email')

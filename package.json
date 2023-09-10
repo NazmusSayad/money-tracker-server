@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "node --watch ./dist --NODE_ENV=development",
+    "dev": "nodemon ./dist --NODE_ENV=development",
     "tsc": "tsc -w",
     "debug": "ndb npm run dev",
     "build": "tsc",
@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "cli-node-env": "^1.0.1",
     "cookie-parser": "^1.4.6",
     "cors": "latest",
     "dotenv": "latest",
@@ -18,8 +19,8 @@
     "helmet": "latest",
     "jsonwebtoken": "^9.0.1",
     "lskit": "^1.0.0",
-    "manual-node-env": "latest",
     "mongoose": "latest",
+    "rype": "^1.0.20",
     "socket.io": "^4.7.2",
     "xss-clean": "latest"
   },
