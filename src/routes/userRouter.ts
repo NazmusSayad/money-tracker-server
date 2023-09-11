@@ -1,10 +1,10 @@
 import { Router } from 'express'
-import controller from '../controller'
+import { tokenController, userController } from '../controller'
 const router = Router()
 
-router.use(controller.token.checkAuthToken)
+router.use(tokenController.checkAuthToken)
 
-router.get('/', controller.user.getUser)
-router.patch('/', controller.user.updateUser)
+router.get('/', userController.getUser)
+router.patch('/', userController.updateUser)
 
 export default router

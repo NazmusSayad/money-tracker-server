@@ -1,40 +1,36 @@
 import { Router } from 'express'
-import controller from '../controller'
+import { authController, tokenController } from '../controller'
 const router = Router()
 
-router.post(
-  '/signup',
-  controller.auth.signup,
-  controller.token.sendUserAndToken
-)
-router.post('/login', controller.auth.login, controller.token.sendUserAndToken)
+router.post('/signup', authController.signup, tokenController.sendUserAndToken)
+router.post('/login', authController.login, tokenController.sendUserAndToken)
 
 router.post(
   '/send-verification-code',
-  controller.token.checkAuthToken,
-  controller.auth.sendVerificationCode
+  tokenController.checkAuthToken,
+  authController.sendVerificationCode
 )
 router.post(
   '/verify-user',
-  controller.token.checkAuthTokenNotVerifiedUser,
-  controller.auth.matchVerifyCode,
-  controller.auth.verifyUser,
-  controller.token.sendUserAndToken
+  tokenController.checkAuthTokenNotVerifiedUser,
+  authController.matchVerifyCode,
+  authController.verifyUser,
+  tokenController.sendUserAndToken
 )
 
-router.post('/send-recover-code', controller.auth.sendRecoverCode)
+router.post('/send-recover-code', authController.sendRecoverCode)
 router.post(
   '/reset-password',
-  controller.auth.resetPassword,
-  controller.token.sendUserAndToken
+  authController.resetPassword,
+  tokenController.sendUserAndToken
 )
 
 router.all(
   '/token',
-  controller.token.getAuthTokenByCookie,
-  controller.token.sendUserAndToken
+  tokenController.getAuthTokenByCookie,
+  tokenController.sendUserAndToken
 )
 
-router.post('/clear', controller.token.clearCookieToken)
+router.post('/clear', tokenController.clearCookieToken)
 
 export default router
