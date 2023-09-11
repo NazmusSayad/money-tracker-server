@@ -3,8 +3,8 @@ import schema from './User-schema'
 import bcrypt from 'bcrypt'
 import mongoose, { HydratedDocumentFromSchema, InferSchemaType } from 'mongoose'
 
-export type UserType = InferSchemaType<typeof schema>
 export type UserDoc = HydratedDocumentFromSchema<typeof schema>
+export type UserType = InferSchemaType<typeof schema>
 
 type PassPreSaveHelper = UserDoc & { _verificationCode; _recoverCode }
 

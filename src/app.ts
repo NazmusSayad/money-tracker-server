@@ -23,7 +23,7 @@ app.use(
   })
 )
 
-// Pasrer
+// Parser
 app.use(express.json({ limit: '8kb' }))
 app.use(cookieParser())
 

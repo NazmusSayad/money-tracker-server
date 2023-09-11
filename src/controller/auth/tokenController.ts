@@ -57,5 +57,5 @@ export const sendUserAndToken: UserHandler = (req, res) => {
     maxAge: 86400000 * 30, // 1 day in milliseconds * 30 = 30 days
   })
 
-  res.success({ user: req.user.getSafeInfo(), token: authToken })
+  res.success({ user: req.user.getSafeInfo(), jwt_token: authToken })
 }

@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "nodemon ./dist --NODE_ENV=development",
+    "dev": "nodemon ./src/index.ts --NODE_ENV=development",
     "tsc": "tsc -w",
     "debug": "ndb npm run dev",
     "build": "tsc",

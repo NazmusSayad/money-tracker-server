@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt'
 import mongoose from 'mongoose'
 import { createdAtSchema, emailSchema } from './_utils'
+import { USER_SAFE_DATA_KEYS } from '../config'
 
 export default new mongoose.Schema(
   {
@@ -57,7 +58,12 @@ export default new mongoose.Schema(
           throw new Error('Should set req.user at any previous middleware')
         }
 
-        return this
+        const result: object = {}
+        USER_SAFE_DATA_KEYS.forEach((key) => {
+          result[key] = this[key]
+        })
+
+        return result as Pick<typeof this, (typeof USER_SAFE_DATA_KEYS)[number]>
       },
 
       async isPassMatched(password: string) {
