@@ -13,7 +13,6 @@ router.post(
 router.post(
   '/verify-user',
   tokenController.checkAuthTokenNotVerifiedUser,
-  authController.matchVerifyCode,
   authController.verifyUser,
   tokenController.sendUserAndToken
 )

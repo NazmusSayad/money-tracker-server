@@ -1,38 +1,29 @@
 import { NormalHandler, UserHandler } from '../types'
 import User from '../../model/User'
-import { generateOTP } from '../../utils/otp'
 
 export const signup: UserHandler = async (req, res, next) => {
   const body = req.getBody('name', 'avatar', 'email', 'password')
   await User.checkEmailAvailability(body.email)
-  const user = await User.create({
-    ...body,
-    verificationCode: generateOTP(6),
-  })
+  const user = await User.create(body)
+  await user.createOTP('email-verification')
 
   req.user = user
   next()
 }
 
-export const sendVerificationCode: UserHandler = async (req, res, next) => {
-  if (req.user.isVerified && !req.user.pendingEmail) {
+export const sendVerificationCode: UserHandler = async (req, res) => {
+  const user = req.user
+
+  if (user.isVerified && !user.pendingEmail) {
     throw new ReqError('There is no running verification process')
   }
 
-  req.user.verificationCode = generateOTP(6)
-  await req.user.save()
+  await user.createOTP('email-verification')
   res.success({ message: 'An email sent to your email' })
 }
 
-export const matchVerifyCode: UserHandler = async (req, res, next) => {
-  if (!(await req.user.isVerifyCodeMatched(req.body.code))) {
-    throw new ReqError('Invalid otp provided', 401)
-  }
-
-  next()
-}
-
 export const verifyUser: UserHandler = async (req, res, next) => {
+  await req.user.checkVerifyCode(req.body.code)
   req.user.isVerified = true
   await req.user.save()
   next()
@@ -50,16 +41,12 @@ export const login: UserHandler = async (req, res, next) => {
   next()
 }
 
-export const sendRecoverCode: NormalHandler = async (req, res, next) => {
+export const sendRecoverCode: NormalHandler = async (req, res) => {
   const body = r.object({ email: r.string() }).parse(req.body)
   const user = await User.findOne({ email: body.email })
 
   res.success({ message: 'An email sent to your email if any user exists' })
-
-  if (user) {
-    user.recoverCode = generateOTP(6)
-    await user.save()
-  }
+  user && (await user.createOTP('account-recover'))
 }
 
 const resetBodySchema = r.object({
@@ -71,16 +58,10 @@ export const resetPassword: UserHandler = async (req, res, next) => {
   const body = resetBodySchema.parse(req.body, 'Reset')
   const user = await User.findOne({ email: body.email })
 
-  if (
-    user &&
-    user.recoverCode &&
-    (await user.isRecoverCodeMatched(req.body.code))
-  ) {
+  if (user && (await user.checkRecoverCode(req.body.code))) {
     user.password = body.password
-    user.recoverCode = undefined
     await user.save()
     req.user = user
-
     return next()
   }
 

@@ -2,6 +2,9 @@ import bcrypt from 'bcrypt'
 import mongoose from 'mongoose'
 import { createdAtSchema, emailSchema } from './_utils'
 import { USER_SAFE_DATA_KEYS } from '../config'
+import OTP, { OTPType } from './OTP'
+import { generateOTP } from '../utils/otp'
+import { UserDoc } from './User'
 
 export default new mongoose.Schema(
   {
@@ -30,8 +33,6 @@ export default new mongoose.Schema(
     },
 
     pendingEmail: { ...emailSchema(), unique: false },
-    verificationCode: { type: String },
-    recoverCode: { type: String },
     createdAt: createdAtSchema(),
   },
 
@@ -53,6 +54,10 @@ export default new mongoose.Schema(
     },
 
     methods: {
+      createOTP(type: OTPType['type']) {
+        return OTP.create({ user: this._id, type, code: generateOTP(6) })
+      },
+
       getSafeInfo() {
         if (!this) {
           throw new Error('Should set req.user at any previous middleware')
@@ -72,23 +77,28 @@ export default new mongoose.Schema(
         )
       },
 
-      async isVerifyCodeMatched(code: string) {
-        if (!this.verificationCode) {
-          throw new ReqError('No verification process running')
-        }
-
-        return Boolean(
-          code && (await bcrypt.compare(code, this.verificationCode))
-        )
-      },
-
-      async isRecoverCodeMatched(code: string) {
-        if (!this.recoverCode) {
-          throw new ReqError('No recover process running')
-        }
-
-        return Boolean(code && (await bcrypt.compare(code, this.recoverCode)))
-      },
+      checkRecoverCode: otpCodeMatchFactory('account-recover'),
+      checkVerifyCode: otpCodeMatchFactory('email-verification'),
     },
   }
 )
+
+function otpCodeMatchFactory(
+  type: OTPType['type']
+): (code: string) => Promise<boolean> {
+  return async function (this: UserDoc, code: string) {
+    const hashes = await OTP.find({ user: this._id, type })
+    if (!hashes?.length) {
+      throw new ReqError('There is no running verification process')
+    }
+
+    for (let hash of hashes) {
+      if (await bcrypt.compare(code, hash.code)) {
+        hashes.forEach((hash) => hash.delete())
+        return true
+      }
+    }
+
+    throw new ReqError('Invalid otp provided', 401)
+  }
+}
