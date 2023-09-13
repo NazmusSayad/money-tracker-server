@@ -26,7 +26,7 @@ const schemas: {
 
   expense: r.object({
     ...commonSchema,
-    category: ID,
+    category: IDOptional,
   }),
 
   loan: r.object({
