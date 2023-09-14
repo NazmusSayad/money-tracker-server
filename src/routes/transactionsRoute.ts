@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { transactionController, tokenController } from '../controller'
 const router = Router()
 
-router.use(tokenController.checkAuthToken)
+router.use(tokenController.checkAuthTokenVerifiedUser)
 
 router.get('/', transactionController.getTransactions)
 router.post('/:type', transactionController.createTransaction)
