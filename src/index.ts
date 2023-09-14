@@ -1,3 +1,9 @@
+import rype from 'rype'
+globalThis.r = rype
+declare global {
+  var r: typeof rype
+}
+
 import env from 'cli-node-env'
 import { config } from 'dotenv'
 config()

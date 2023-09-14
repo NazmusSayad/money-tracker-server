@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { TypeObject, Types } from 'extrass'
+import { TypeObject, TypeSchemaUnion } from 'rype'
 import Transaction, { TransactionType } from '../../model/Transaction'
 const ID = r.or(r.string(), r.instance(mongoose.Types.ObjectId))
 const IDOptional = r.o.or(r.string(), r.instance(mongoose.Types.ObjectId))
@@ -17,7 +17,7 @@ const commonSchema = {
 }
 
 const schemas: {
-  [k in TransactionType['type']]: Types
+  [k in TransactionType['type']]: TypeSchemaUnion
 } = {
   income: r.object({
     ...commonSchema,
