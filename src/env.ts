@@ -6,7 +6,7 @@ export default env(
     ? {
         DB_URL: r
           .string()
-          .default('mongodb://127.0.0.1:27017/v2?retryWrites=true&w=majority'),
+          .default('mongodb://127.0.0.1:27017/money-tracker?retryWrites=true&w=majority'),
         DB_PASS: r.string().default(''),
         JWT_SECRET: r.string().default('Boom'),
         BCRYPT_SALT_ROUND: r.number().default(2),
