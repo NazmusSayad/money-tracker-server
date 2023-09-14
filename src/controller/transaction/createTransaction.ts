@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { Types } from 'extrass'
+import { TypeObject, Types } from 'extrass'
 import Transaction, { TransactionType } from '../../model/Transaction'
 const ID = r.or(r.string(), r.instance(mongoose.Types.ObjectId))
 const IDOptional = r.o.or(r.string(), r.instance(mongoose.Types.ObjectId))
@@ -47,18 +47,17 @@ const schemas: {
   }),
 }
 
-function parseSchema(type: string, rawBody, safe: boolean = false) {
+function getSchema(type: string) {
   const schema = schemas[type]
   if (!schema) {
     throw new Error('Invalid transaction type')
   }
 
-  return safe ? schema.filter(rawBody) : schema.parse(rawBody)
+  return schema as TypeObject
 }
 
 export async function create(rawBody) {
-  const body = parseSchema(rawBody.type, rawBody)
-  return Transaction.create(body)
+  return Transaction.create(getSchema(rawBody.type).parse(rawBody))
 }
 
 export async function update(
@@ -71,7 +70,8 @@ export async function update(
     throw new ReqError('Transaction not found')
   }
 
-  const body = parseSchema(transaction.type, rawBody, true)
-  transaction.set(body)
+  const schema = getSchema(transaction.type).omit('user').partial()
+  console.log(schema.parse(rawBody))
+  transaction.set(schema.parse(rawBody))
   return transaction.save()
 }
