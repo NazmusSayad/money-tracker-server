@@ -42,4 +42,5 @@ schema.post('save', function (this: PreSaveHelper) {
   console.log(this.type, 'code:', this._tempCode)
 })
 
+schema.index({ user: 1, type: 1 })
 export default mongoose.model('OTP', schema)

@@ -37,8 +37,6 @@ export default new mongoose.Schema(
   },
 
   {
-    versionKey: false,
-
     statics: {
       async checkEmailAvailability(email: string) {
         if (!email) throw new ReqError('Please provide an email')
