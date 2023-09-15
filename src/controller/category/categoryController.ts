@@ -7,8 +7,8 @@ export const getCategories: UserHandler = async (req, res, next) => {
 }
 
 export const createCategory: UserHandler = async (req, res, next) => {
-  const body = categoryRypeSchema.omit('user').parse(req.body)
-  const category = await Category.create(body)
+  const body = categoryRypeSchema.parse(req.body)
+  const category = await Category.create({ ...body, user: req.user.id })
   res.success({ category })
 }
 
@@ -20,7 +20,7 @@ export const updateCategory: UserHandler = async (req, res, next) => {
 
   if (!category) throw new ReqError('Category not found', 404)
 
-  const body = categoryRypeSchema.omit('user').partial().parse(req.body)
+  const body = categoryRypeSchema.partial().parse(req.body)
   category.set(body)
 
   await category.save()

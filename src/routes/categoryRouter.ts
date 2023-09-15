@@ -1,11 +1,12 @@
 import { Router } from 'express'
-import { categoryController } from '../controller'
+import { categoryController, tokenController } from '../controller'
 
 const router = Router()
+router.use(tokenController.checkAuthTokenVerifiedUser)
 
 router.get('/', categoryController.getCategories)
 router.post('/', categoryController.createCategory)
-router.put('/:id', categoryController.updateCategory)
+router.patch('/:id', categoryController.updateCategory)
 router.delete('/:id', categoryController.deleteCategory)
 
 export default router
