@@ -18,4 +18,8 @@ schema.pre('save', async function (this, next) {
   next()
 })
 
+schema.post('deleteOne', async function (this, next) {
+  console.log('Deleted', this)
+})
+
 export default mongoose.model('User', schema)

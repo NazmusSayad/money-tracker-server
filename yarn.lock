@@ -1789,10 +1789,10 @@ rimraf@^3.0.2:
   dependencies:
     glob "^7.1.3"
 
-rype@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/rype/-/rype-1.2.5.tgz#45dc828624a794dbfccbb0c1cf38441494726bdd"
-  integrity sha512-ptCZizphQ1J5+dOtrl0rfB0yALQnE2qteKGaFkQQhl4lCNirqR4HmxF5mpZw5BmAT2SjOj8qEQ70tPFA76UVuQ==
+rype@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/rype/-/rype-1.2.6.tgz#b4e51c67e071e33f43f68a49b0320d12987e4a4d"
+  integrity sha512-Dw4rW35xQhNndOb3GklPckzi9Fy0T0uPIl4SNoEqDfl3bfshFeYyvBmoB/HJ0iEONDe2hD7PBQtT25CmJnsS+g==
 
 safe-buffer@5.2.1, safe-buffer@^5.0.1, safe-buffer@~5.2.0:
   version "5.2.1"
