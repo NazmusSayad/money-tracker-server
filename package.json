@@ -19,7 +19,6 @@
     "extrass": "^2.0.0",
     "helmet": "latest",
     "jsonwebtoken": "^9.0.1",
-    "lskit": "^1.0.0",
     "mongoose": "6",
     "rype": "^1.2.6",
     "socket.io": "^4.7.2",

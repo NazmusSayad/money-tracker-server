@@ -1,5 +1,5 @@
 import { UserHandler } from '../types'
-import Category, { categoryRypeSchema } from '../../model/Category'
+import Category from '../../model/Category'
 
 export const getCategories: UserHandler = async (req, res, next) => {
   const categories = await Category.find({ user: req.user.id })
@@ -7,8 +7,11 @@ export const getCategories: UserHandler = async (req, res, next) => {
 }
 
 export const createCategory: UserHandler = async (req, res, next) => {
-  const body = categoryRypeSchema.parse(req.body)
-  const category = await Category.create({ ...body, user: req.user.id })
+  const category = await Category.create({
+    ...req.getBody('name', 'type'),
+    user: req.user.id,
+  })
+
   res.success({ category })
 }
 
@@ -20,9 +23,7 @@ export const updateCategory: UserHandler = async (req, res, next) => {
 
   if (!category) throw new ReqError('Category not found', 404)
 
-  const body = categoryRypeSchema.partial().parse(req.body)
-  category.set(body)
-
+  category.set(req.getBody('name'))
   await category.save()
   res.success({ category })
 }

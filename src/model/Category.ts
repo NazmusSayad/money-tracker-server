@@ -10,7 +10,3 @@ const schema = new mongoose.Schema({
 })
 
 export default mongoose.model('Category', schema)
-export const categoryRypeSchema = r.object({
-  name: r.string(),
-  type: r.string('income', 'expense'),
-})
