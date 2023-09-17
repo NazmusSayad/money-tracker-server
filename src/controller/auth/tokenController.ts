@@ -6,6 +6,7 @@ import {
 } from '../../utils/jwt'
 import io from '../../socket'
 import { UserHandler } from '../types'
+import { originToDomain } from '../../utils'
 
 function checkAuthFactory(isVerified?: boolean): UserHandler {
   return async (req, res, next) => {
@@ -43,14 +44,17 @@ export const clearCookieToken: UserHandler = (req, res) => {
 export const sendUserAndToken: UserHandler = (req, res) => {
   const cookieToken = generateCookieToken(req.user)
   const authToken = generateAuthToken(req.user)
+  const domain = originToDomain(req.headers.origin!)
 
   res.cookie('hasToken', 'true', {
+    domain,
     secure: true,
     httpOnly: false,
     sameSite: 'none',
     maxAge: 86400000 * 30, // 1 day in milliseconds * 30 = 30 days
   })
   res.cookie('cookieToken', cookieToken, {
+    domain,
     secure: true,
     httpOnly: true,
     sameSite: 'none',

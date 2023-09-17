@@ -8,3 +8,10 @@ export function deepCatchError<T extends object>(object: T): T {
     ])
   ) as T
 }
+
+export function originToDomain(url: string) {
+  const regex = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n]+)/
+  const match = url.match(regex)
+
+  if (match) return match[1]
+}
