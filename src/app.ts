@@ -34,7 +34,12 @@ app.use(xss())
 app.use((req, res, next) => {
   console.log(req.cookies.Boom)
   const val = Math.random()
-  res.cookie('Boom', val)
+  res.cookie('Boom', val, {
+    secure: true,
+    sameSite: 'none',
+    httpOnly: true,
+    maxAge: 86400000 /* 1 day -> miliseconds */ * 30,
+  })
   next()
 })
 
