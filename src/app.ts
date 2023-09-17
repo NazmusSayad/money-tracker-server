@@ -31,6 +31,13 @@ app.use(cookieParser())
 app.use(mongoSanitize())
 app.use(xss())
 
+app.use((req, res, next) => {
+  console.log(req.cookies.Boom)
+  const val = Math.random()
+  res.cookie('Boom', val)
+  next()
+})
+
 // Router
 app.use(router)
 
