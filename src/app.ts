@@ -10,7 +10,7 @@ import router from './router'
 const app = express()
 
 // Safety
-app.use(cors({ origin: /.*/ }))
+app.use(cors({ origin: /.*/, credentials: true }))
 app.use(helmet())
 app.use(
   rateLimit({
