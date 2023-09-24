@@ -31,11 +31,13 @@ const schemas: {
 
   loan: r.object({
     ...commonSchema,
+    isPaid: r.boolean().default(false),
     to: r.string(),
   }),
 
   borrow: r.object({
     ...commonSchema,
+    isPaid: r.boolean().default(false),
     from: r.string(),
   }),
 

@@ -58,6 +58,12 @@ const schema = new mongoose.Schema({
     required: false,
   },
 
+  // For Borrowing/Loan
+  isPaid: {
+    type: Boolean,
+    required: false,
+  },
+
   // For Taking Loan
   from: {
     type: String,
