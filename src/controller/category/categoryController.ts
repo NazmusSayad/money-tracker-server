@@ -42,7 +42,11 @@ export const deleteCategory: UserHandler = async (req, res, next) => {
 
   const promises = uniqueIds.map((id) => {
     return runMultipleOperation(async () => {
-      const category = await Category.findById(id)
+      const category = await Category.findOne({
+        _id: id,
+        user: req.user._id,
+      })
+
       if (!category) throw new ReqError('Category not found', 404)
       return category.delete()
     }, null)

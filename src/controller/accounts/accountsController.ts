@@ -41,7 +41,11 @@ export const deleteAccount: UserHandler = async (req, res, next) => {
 
   const promises = uniqueIds.map((id) => {
     return runMultipleOperation(async () => {
-      const account = await Accounts.findById(id)
+      const account = await Accounts.findOne({
+        _id: id,
+        user: req.user._id,
+      })
+
       if (!account) throw new ReqError('Account not found', 404)
       return account.delete()
     }, null)

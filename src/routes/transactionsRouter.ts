@@ -5,8 +5,8 @@ const router = Router()
 router.use(tokenController.checkAuthTokenVerifiedUser)
 
 router.get('/', transactionController.getTransactions)
-router.post('/:type', transactionController.createTransaction)
-router.patch('/:id', transactionController.updateTransaction)
+router.post('/', transactionController.createTransaction)
+router.patch('/', transactionController.updateTransaction)
 router.delete('/:id', transactionController.deleteTransaction)
 
 export default router
