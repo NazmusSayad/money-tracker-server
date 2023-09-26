@@ -1,5 +1,6 @@
 import { UserHandler } from '../types'
 import Category from '../../model/Category'
+import { runMultipleOperation } from '../../utils/controller'
 
 export const getCategories: UserHandler = async (req, res, next) => {
   const categories = await Category.find({ user: req.user.id })
@@ -7,35 +8,46 @@ export const getCategories: UserHandler = async (req, res, next) => {
 }
 
 export const createCategory: UserHandler = async (req, res, next) => {
-  const category = await Category.create({
-    ...req.getBody('name', 'type'),
-    user: req.user.id,
+  const promises = req.body.map((body) => {
+    return runMultipleOperation(() =>
+      Category.create({
+        user: req.user._id,
+        type: body.type,
+        name: body.name,
+      })
+    )
   })
 
-  res.success({ category })
+  const categories = await Promise.all(promises)
+  res.success({ categories })
 }
 
 export const updateCategory: UserHandler = async (req, res, next) => {
-  const category = await Category.findOne({
-    _id: req.params.id,
-    user: req.user.id,
+  const promises = Object.entries(req.body).map(([_id, body]: any) => {
+    return runMultipleOperation(async () => {
+      const category = await Category.findById(_id)
+      if (!category) throw new ReqError('Category not found', 404)
+
+      category.set({ name: body.name })
+      return category.save()
+    })
   })
 
-  if (!category) throw new ReqError('Category not found', 404)
-
-  category.set(req.getBody('name'))
-  await category.save()
-  res.success({ category })
+  const categories = await Promise.all(promises)
+  res.success({ categories })
 }
 
 export const deleteCategory: UserHandler = async (req, res, next) => {
-  const category = await Category.findOne({
-    _id: req.params.id,
-    user: req.user.id,
+  const uniqueIds = [...new Set((req.params.id || '').split(','))]
+
+  const promises = uniqueIds.map((id) => {
+    return runMultipleOperation(async () => {
+      const category = await Category.findById(id)
+      if (!category) throw new ReqError('Category not found', 404)
+      return category.delete()
+    }, null)
   })
 
-  if (!category) throw new ReqError('Category not found', 404)
-
-  await category.remove()
-  res.status(204).end()
+  const categories = await Promise.all(promises)
+  res.success({ categories })
 }

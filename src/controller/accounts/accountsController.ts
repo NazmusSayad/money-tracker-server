@@ -11,7 +11,7 @@ export const createAccount: UserHandler = async (req, res, next) => {
   const promises = req.body.map((account: any) => {
     return runMultipleOperation(() =>
       Accounts.create({
-        user: req.user,
+        user: req.user._id,
         name: account.name,
       })
     )
