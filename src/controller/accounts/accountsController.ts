@@ -1,5 +1,6 @@
 import { UserHandler } from '../types'
 import Accounts from '../../model/Accounts'
+import { runMultipleOperation } from '../../utils/controller'
 
 export const getAccounts: UserHandler = async (req, res, next) => {
   const accounts = await Accounts.find({ user: req.user })
@@ -7,27 +8,45 @@ export const getAccounts: UserHandler = async (req, res, next) => {
 }
 
 export const createAccount: UserHandler = async (req, res, next) => {
-  const account = await Accounts.create({
-    user: req.user,
-    name: req.body.name,
+  const promises = req.body.map((account: any) => {
+    return runMultipleOperation(() =>
+      Accounts.create({
+        user: req.user,
+        name: account.name,
+      })
+    )
   })
 
-  res.success({ account })
+  const accounts = await Promise.all(promises)
+  res.success({ accounts })
 }
 
 export const updateAccount: UserHandler = async (req, res, next) => {
-  const account = await Accounts.findById(req.params.id)
-  if (!account) throw new ReqError('Account not found', 404)
+  const promises = Object.entries(req.body).map(([_id, body]: any) => {
+    return runMultipleOperation(async () => {
+      const account = await Accounts.findById(_id)
+      if (!account) throw new ReqError('Account not found', 404)
 
-  account.set({ name: req.body.name })
-  await account.save()
-  res.success({ account })
+      account.set({ name: body.name })
+      return account.save()
+    })
+  })
+
+  const accounts = await Promise.all(promises)
+  res.success({ accounts })
 }
 
 export const deleteAccount: UserHandler = async (req, res, next) => {
-  const account = await Accounts.findById(req.params.id)
-  if (!account) throw new ReqError('Account not found', 404)
-  await account.delete()
+  const uniqueIds = [...new Set((req.params.id || '').split(','))]
 
-  res.status(204).end()
+  const promises = uniqueIds.map((id) => {
+    return runMultipleOperation(async () => {
+      const account = await Accounts.findById(id)
+      if (!account) throw new ReqError('Account not found', 404)
+      return account.delete()
+    }, null)
+  })
+
+  const accounts = await Promise.all(promises)
+  res.success({ accounts })
 }

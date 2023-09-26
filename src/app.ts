@@ -39,5 +39,5 @@ app.use((req, res, next) => {
 app.use(router)
 
 // Finisher
-extrass(app, { ping: '/ping' })
+extrass(app)
 export default app

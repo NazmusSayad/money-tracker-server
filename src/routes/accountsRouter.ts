@@ -6,7 +6,7 @@ router.use(tokenController.checkAuthTokenVerifiedUser)
 
 router.get('/', accountsController.getAccounts)
 router.post('/', accountsController.createAccount)
-router.patch('/:id', accountsController.updateAccount)
+router.patch('/', accountsController.updateAccount)
 router.delete('/:id', accountsController.deleteAccount)
 
 export default router
