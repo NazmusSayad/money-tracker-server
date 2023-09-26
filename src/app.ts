@@ -12,16 +12,19 @@ const app = express()
 // Safety
 app.use(cors({ origin: /.*/, credentials: true }))
 app.use(helmet())
+
+/*
 app.use(
   rateLimit({
     max: 1000,
-    windowMs: 60 * 60 * 1000 /* 1 Hour */,
+    windowMs: 60 * 60 * 1000, // 1 Hour
     message: {
       status: 'fail',
       message: 'Too many requests, please try again later',
     },
   })
 )
+*/
 
 // Parser
 app.use(express.json({ limit: '8kb' }))
