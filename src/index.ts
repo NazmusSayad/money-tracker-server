@@ -1,12 +1,12 @@
+import { config } from 'dotenv'
+import env from 'cli-node-env'
+config()
+
 import rype from 'rype'
 globalThis.r = rype
 declare global {
   var r: typeof rype
 }
-
-import env from 'cli-node-env'
-import { config } from 'dotenv'
-config()
 
 console.log('---', new Date().toString())
 env.isDev && console.clear()
