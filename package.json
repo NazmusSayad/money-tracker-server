@@ -8,6 +8,7 @@
     "start": "node ./dist --NODE_ENV=production"
   },
   "dependencies": {
+    "axios": "^1.5.1",
     "bcrypt": "^5.1.0",
     "cli-node-env": "^1.0.1",
     "cookie-parser": "^1.4.6",
